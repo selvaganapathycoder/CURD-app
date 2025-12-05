@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> CRUD App (MockAPI + Modal Edit)</title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f9;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 800px;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 26px;
+      color: #333;
+    }
+
+    .input-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    input:focus {
+      border-color: #4a90e2;
+      outline: none;
+    }
+
+    button {
+      background: #4a90e2;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #357acb;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th {
+      background: #4a90e2;
+      color: white;
+      padding: 12px;
+    }
+
+    td {
+      padding: 12px;
+      background: #fafafa;
+      border-bottom: 1px solid #eee;
+    }
+
+    .edit-btn {
+      background: #f5a623;
+    }
+
+    .edit-btn:hover {
+      background: #d8891c;
+    }
+
+    .del-btn {
+      background: #e94e4e;
+    }
+
+    .del-btn:hover {
+      background: #c73737;
+    }
+
+    #loader {
+      display: none;
+      margin-bottom: 15px;
+      color: #4a90e2;
+      font-weight: bold;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-box {
+      background: white;
+      width: 350px;
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+      animation: popup 0.3s ease;
+    }
+
+    @keyframes popup {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-box input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+    }
+
+    .modal-buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .cancel-btn {
+      background: gray;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="container">
+    <h2>CRUD App (MockAPI + Modal Edit)</h2>
+
+    <div id="loader">Loading...</div>
+
+    <div class="input-box">
+      <input type="text" id="name" placeholder="Enter Name">
+      <button onclick="createItem()">Add</button>
+    </div>
+
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody id="dataBody"></tbody>
+    </table>
+  </div>
+
+  <!-- MODAL -->
+  <div id="editModal" class="modal-overlay">
+    <div class="modal-box">
+      <h3>Edit Item</h3>
+      <input type="text" id="editName">
+      <div class="modal-buttons">
+        <button onclick="saveEdit()" class="edit-btn">Save</button>
+        <button onclick="closeModal()" class="cancel-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
